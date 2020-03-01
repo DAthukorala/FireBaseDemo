@@ -20,12 +20,22 @@ namespace Firebaser.API.Controllers
             _repository = new AutoSaveRepository();
         }
 
+        /// <summary>
+        /// read saved data from firebase
+        /// </summary>
+        /// <param name="id">id of the form</param>
+        /// <returns>list of all the backups for that form, ordered by created time, in descending order</returns>
         public async Task<List<AutoSaveInfo>> Get(string id)
         {
             var data = await _repository.Read(id);
             return data;
         }
 
+        /// <summary>
+        /// save data in firebase
+        /// </summary>
+        /// <param name="data">data to backup</param>
+        /// <returns>status of the save, succesful or not</returns>
         public async Task<bool> PostAsync([FromBody]AutoSaveInfo data)
         {
             var status = await _repository.Create(data);
