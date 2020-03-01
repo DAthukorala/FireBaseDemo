@@ -10,9 +10,9 @@ function persistenceService(formId) {
     }
 
     self.readData = function () {
-        return localforage.getItem(self.key).then(function(savedData) {
+        return localforage.getItem(self.key).then(function (savedData) {
             return savedData;
-          });
+        });
     }
 
     function initialize(formId) {
@@ -23,7 +23,7 @@ function persistenceService(formId) {
         localforage.config({
             driver: [localforage.INDEXEDDB, localforage.WEBSQL, localforage.LOCALSTORAGE], //set the fall back strategy
             name: 'EHR',
-            storeName: 'AutoSaveData', // Should be alphanumeric, with underscores.
+            storeName: 'AutoSaveData',
             description: 'Hold data that are auto saved for the currently active EZ Form'
         });
 
@@ -34,10 +34,13 @@ function persistenceService(formId) {
         });
 
         //save data in fire store every 60 seconds
-        setInterval(function() {
-            var dataToSave={id:"testClient_"+formId, formData:JSON.stringify(self.db.data)};
+        setInterval(function () {
+            var dataToSave = {
+                id: "testClient_" + formId,
+                formData: JSON.stringify(self.db.data)
+            };
             backupService.saveData(dataToSave);
-        }, 5000);//60000
+        }, 60000);
     }
 
     initialize(formId);

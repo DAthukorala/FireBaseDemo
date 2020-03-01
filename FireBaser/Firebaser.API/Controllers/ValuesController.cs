@@ -9,6 +9,7 @@ using System.Web.Http.Cors;
 namespace Firebaser.API.Controllers
 {
     //dont use origins * here. add the correct client url
+    //you wont have a CORS problem since both the client and api are in the same origin
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ValuesController : ApiController
     {
@@ -19,14 +20,12 @@ namespace Firebaser.API.Controllers
             _repository = new AutoSaveRepository();
         }
 
-        // GET api/values/5
         public async Task<List<AutoSaveInfo>> Get(string id)
         {
             var data = await _repository.Read(id);
             return data;
         }
 
-        // POST api/values
         public async Task<bool> PostAsync([FromBody]AutoSaveInfo data)
         {
             var status = await _repository.Create(data);

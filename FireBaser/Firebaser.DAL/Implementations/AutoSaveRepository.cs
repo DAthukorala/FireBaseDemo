@@ -12,8 +12,8 @@ namespace Firebaser.DAL.Implementations
         private readonly CollectionReference _collection;
         public AutoSaveRepository()
         {
-            var _database = FirestoreDb.Create("ehrautosave");
-            _collection = _database.Collection("AutoSaveRepo");
+            var _database = FirestoreDb.Create("ehrautosave"); //get a reference to the firestrore data base
+            _collection = _database.Collection("AutoSaveRepo"); //get a reference to the auto save collection (table)
         }
 
         public async Task<bool> Create(AutoSaveInfo data)

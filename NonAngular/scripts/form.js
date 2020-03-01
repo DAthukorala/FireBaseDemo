@@ -4,16 +4,16 @@ $(function () {
 
     //fetch and show saved data from the index db
     $("#btnShowLocalData").click(function () {
-        service.readData().then(function(data){
+        service.readData().then(function (data) {
             $("#lblSavedLocalData").text(JSON.stringify(data));
-        });        
+        });
     });
 
     //fetch and show saved data from firebase cloud storage
     $("#btnShowCloudData").click(function () {
-        backupService.readData("testClient_sampleForm").then(function(data){
+        backupService.readData("testClient_sampleForm").then(function (data) {
             $("#lblSavedCloudData").text(JSON.stringify(data));
-        });        
+        });
     });
 
 })
