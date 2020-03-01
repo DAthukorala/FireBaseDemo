@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <!-- This is the form that will be backed up in local indexeddb and in firebase cloud -->
     <form id="sampleForm">
         <label>Name:</label>
         <input type="text" name='firstName'><br><br>
@@ -33,11 +34,13 @@
         </label><br><br>
     </form>
 
+    <!-- Use this button to display data that is saved in local indexdb -->
     <input type="button" id="btnShowLocalData" value="Show saved data from Indexed DB">    
     <label id="lblSavedLocalData"></label>
     <hr/>
     <br/><br/><br/><br/>
 
+    <!-- Use this button to display data that is saved in firebase cloud storage -->
     <input type="button" id="btnShowCloudData" value="Show saved data from Firebase cloud storage">
     <label id="lblSavedCloudData"></label>
 </body>

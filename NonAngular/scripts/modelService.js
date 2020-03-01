@@ -1,3 +1,6 @@
+//this service is responsible for maintaining data for current form
+//it does this by inspecting name attributes of every control in the form and creating a json object with corresponding properties
+//this part needs to be changed/replaced as needed to facilitate the current implementation of ez forms
 function modelService(formId) {
     var self = this;
 
