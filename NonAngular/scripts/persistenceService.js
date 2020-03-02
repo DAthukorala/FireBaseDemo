@@ -6,6 +6,7 @@
 function persistenceService(formId) {
     var self = this;
     self.key;
+    self.backupService;
 
     //save data in local indexeddb
     self.saveData = function () {
@@ -27,6 +28,8 @@ function persistenceService(formId) {
         self.key = formId;
         //initialize model service and data model
         self.db = new modelService(formId);
+        //get a reference to the backupService
+        self.backupService = new backupService();
 
         //initialized local indexeddb instance 
         localforage.config({
@@ -51,11 +54,20 @@ function persistenceService(formId) {
                     id: "testClient_" + formId,
                     formData: JSON.stringify(savedData)
                 };
-                //save in cloud
-                backupService.saveData(dataToSave);
+                ////check if data has been changed
+                if (isDataChanged(dataToSave)) {
+                    //save in cloud
+                    self.backupService.saveData(dataToSave);
+                }
             });
 
         }, 5000);
+    }
+
+    function isDataChanged(newData) {
+        var dataToSave = JSON.stringify(newData);
+        var isChanged = dataToSave !== self.backupService.savedData;
+        return isChanged;
     }
 
     initialize(formId);
