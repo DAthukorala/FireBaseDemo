@@ -38,20 +38,24 @@ function persistenceService(formId) {
 
         //listen for changes in form inputs, and save them in indexed db
         $("#" + formId + "").on('keyup change paste', ':input', function () {
-            self.db.updateData($(this));//sync the data model with the new changes
+            self.db.updateData($(this)); //sync the data model with the new changes
             self.saveData();
         });
 
         //save data in fire store in a set interval
         setInterval(function () {
-            //create the backup document
-            var dataToSave = {
-                id: "testClient_" + formId,
-                formData: JSON.stringify(self.db.data)
-            };
-            //save in cloud
-            backupService.saveData(dataToSave);
-        }, 60000);
+            //get data from the local storage
+            self.readData().then(function (savedData) {
+                //create the backup document
+                var dataToSave = {
+                    id: "testClient_" + formId,
+                    formData: JSON.stringify(savedData)
+                };
+                //save in cloud
+                backupService.saveData(dataToSave);
+            });
+
+        }, 5000);
     }
 
     initialize(formId);
